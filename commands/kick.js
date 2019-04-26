@@ -1,17 +1,25 @@
-module.exports = function (message)
+const botconfig = require(`../botconfig`);
+
+module.exports = function (msg)
 {
-    const member = message.mentions.members.first()
+    if (msg.author.id != botconfig.masteruserid)
+    {
+        msg.reply('I only listen to my wonderful master Rubyleehs. Piss off sheep.')
+        return;
+    }
+
+    const member = msg.mentions.members.first()
 
     if (!member)
     {
-        return message.reply(`Who are you trying to kick? You must mention a user.`)
+        return msg.reply(`Who are you trying to kick? You must mention a user.`)
     }
     if (!member.kickable)
     {
-        return message.reply(`I can't kick this user. Sorry!`)
+        return msg.reply(`I can't kick this user. Sorry!`)
     }
     return member
         .kick()
-        .then(() => message.reply(`${member.user.tag} was kicked.`))
-        .catch(error => message.reply(`Sorry, an error occured.`))
+        .then(() => msg.reply(`${member.user.tag} was kicked.`))
+        .catch(error => msg.reply(`Sorry, an error occured.`))
 }

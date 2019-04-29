@@ -1,14 +1,9 @@
-const botconfig = require(`../botconfig`);
-
-const kick = require('../commands/kick')
-const whoami = require('../commands/whoami')
-const math = require('../commands/math')
 const censor = require('../commands/censor')
 
-module.exports = function (client, msg)
+module.exports = function (client, oldmsg, newmsg)
 {
-    if (msg.author.bot) return;
-    censor(msg.content, msg);
+    if (oldmsg.author.bot) return;
+    censor(newmsg.content, oldmsg);
 
     /*
     if (msg.content.startsWith(botconfig.prefix))

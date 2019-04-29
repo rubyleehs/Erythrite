@@ -2,6 +2,8 @@ const botconfig = require(`../botconfig`);
 const math = require('mathjs');
 const parser = math.parser();
 
+//adapted from erm somewhere on the MathJS site to work with discord
+
 math.import({
     'import': function () { throw new Error('Import is disabled') },
     'eval': function () { throw new Error('Eval is disabled') },

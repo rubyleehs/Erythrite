@@ -1,4 +1,3 @@
-./botconfig.json
-./bot_config.json
-./channel_ids.json
-
+botconfig.json
+bot_config.json
+channel_ids.json

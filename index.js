@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const botconfig = require(`./botconfig`);
+const botconfig = require(`./bot_config`);
 const fs = require('fs');
 
 fs.readdir('./events/', (err, files) =>
@@ -16,10 +16,4 @@ fs.readdir('./events/', (err, files) =>
     })
 })
 
-/*
-client.on('guildMemberAdd', member => 
-{
-    client.channels.get(welcomeChannelID).send(`Hi <@${member.id}>! \nWelcome to Cinnabar! Please read the rules in <#${rulesChannelID}>.`)
-})
-*/
 client.login(botconfig.token);

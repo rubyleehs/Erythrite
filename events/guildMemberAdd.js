@@ -1,10 +1,9 @@
-var welcomeChannelID = '542189782235611157';
-var rulesChannelID = '514429978570653699';
+const channelIDs = require('../channel_ids');
 
 module.exports = function (client, member)
 {
-    if (client.channels.get(welcomeChannelID) != undefined && lient.channels.get(rulesChannelID) != undefined)
+    if (client.channels.get(channelIDs.welcomeChannel) != undefined && client.channels.get(channelIDs.rulesChannel) != undefined)
     {
-        client.channels.get(welcomeChannelID).send(`Hi <@${member.id}>! \nWelcome to Cinnabar! Please read the rules in <#${rulesChannelID}>.`)
+        client.channels.get(channelIDs.welcomeChannel).send(`Hi <@${member.id}>! \nWelcome to Cinnabar! Please read the rules in <#${channelIDs.rulesChannel}>.`)
     }
 }

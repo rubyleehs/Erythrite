@@ -1,8 +1,8 @@
-const botconfig = require(`../botconfig`);
+const botconfig = require(`../bot_config`);
 
 module.exports = function (msg)
 {
-    if (msg.author.id != botconfig.masteruserid)
+    if (msg.author.id != botconfig.masterUserID)
     {
         msg.reply('I only listen to my wonderful master Rubyleehs. Piss off sheep.')
         return;

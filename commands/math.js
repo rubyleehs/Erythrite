@@ -1,4 +1,4 @@
-const botconfig = require(`../botconfig`);
+const botconfig = require(`../bot_config`);
 const math = require('mathjs');
 const parser = math.parser();
 

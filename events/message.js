@@ -4,6 +4,7 @@ const kick = require('../commands/kick')
 const whoami = require('../commands/whoami')
 const math = require('../commands/math')
 const censor = require('../commands/censor')
+const translate = require('../commands/translate')
 
 module.exports = function (client, msg)
 {
@@ -22,5 +23,6 @@ module.exports = function (client, msg)
         if (s.startsWith('kick')) return kick(msg);
         else if (s.startsWith('whoami')) return whoami(msg);
         else if (s.startsWith('math')) return math(msg);
+        else if (s.startsWith('translate')) return translate(msg);
     };
 }

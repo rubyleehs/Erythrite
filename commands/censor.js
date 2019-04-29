@@ -1,8 +1,6 @@
 const channelIDs = require('../channel_ids');
 const censoredwords = require('../censored_words');
 
-var scensor = [];
-
 module.exports = function (msg, msgObject)
 {
     if (stringContains(msg.toLowerCase(), censoredwords.words))

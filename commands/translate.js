@@ -9,7 +9,11 @@ module.exports = function (msg)
     let text;
 
     if (!member) text = input.substr(lang.length + 1);
-    else text = member.lastMessage.content;
+    else
+    {
+        msg.reply("> " + member.lastMessage);
+        text = member.lastMessage.content;
+    }
 
     /*
     let output = "";
@@ -39,7 +43,7 @@ module.exports = function (msg)
     translate(text, { to: lang }).then(res =>
     {
         let o = "";
-        o += `Translated from ${res.from.language.iso}.`
+        o += "Translated from " + res.from.language.iso.toUpperCase() + "."
         if (res.from.text.autoCorrected)
         {
             o += `Autocorrected`
@@ -49,9 +53,8 @@ module.exports = function (msg)
             }
             else o += ".";
         }
-        o += `\n${lang} translated version:`;
+        o += "\n" + lang.toUpperCase() + " translated version:";
         o += "\n`" + res.text + "`";
-        console.log(res.text);
 
         msg.reply(o);
     }).catch(err =>

@@ -21,14 +21,13 @@ module.exports = function (msg)
             if (userMsg.size > 0)
             {
                 text = userMsg.first().content;
-                msg.channel.send(`last message found: ${text}`);
+                trans();
             }
             else
             {
                 msg.channel.send(`No recent messages from ${member.user.username} found`)
                 return;
             }
-            trans();
         }).catch(err =>
         {
             msg.channel.send("Error trying to fetch message history");

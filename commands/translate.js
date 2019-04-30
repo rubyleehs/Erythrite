@@ -6,59 +6,53 @@ module.exports = function (msg)
     const member = msg.mentions.members.first()
     let input = msg.content.substr(botconfig.prefix.length + 10);;
     let lang = input.split(" ")[0];
-    let text;
+    var text;
 
-    if (!member) text = input.substr(lang.length + 1);
+    if (!member)
+    {
+        text = input.substr(lang.length + 1);
+        trans();
+    }
     else
     {
-        msg.reply("> " + member.lastMessage);
-        text = member.lastMessage.content;
+        msg.channel.fetchMessages({ limit: 5 }).then(messages =>
+        {
+            let userMsg = messages.filter(msg => msg.author.id === member.user.id);
+            if (userMsg.size > 0)
+            {
+                text = userMsg.first().content;
+                msg.channel.send(`last message found: ${text}`);
+            }
+            else
+            {
+                msg.channel.send(`No recent messages from ${member.user.username} found`)
+                return;
+            }
+            trans();
+        }).catch(err =>
+        {
+            msg.channel.send("Error trying to fetch message history");
+            console.log(err);
+        });
     }
 
-    /*
-    let output = "";
-    translate(text, { to: lang }).then(res =>
+    function trans()
     {
-        let output = "";
-        output += `Translated from ${res.from.language.iso}.`
-        if (res.from.text.autoCorrected)
+        translate(text, { to: lang }).then(res =>
         {
-            output += `Autocorrected`
-            if (res.from.text.value.length < 80)
+            let o = "";
+            o += "Translated from " + res.from.language.iso.toUpperCase() + "."
+            if (res.from.text.autoCorrected)
             {
-                output += "to:\n `" + res.from.text.value.length + "`";
+                o += `Autocorrected`
             }
-            else output += ".";
-        }
-        output += `\n${res.to.language.iso} translated version:`;
-        output += "\n'" + res.text + "'";
+            o += "\n" + lang.toUpperCase() + " translated version:";
+            o += "\n`" + res.text + "`";
 
-    }).catch(err =>
-    {
-        console.error(err);
-    });
-    */
-
-
-    translate(text, { to: lang }).then(res =>
-    {
-        let o = "";
-        o += "Translated from " + res.from.language.iso.toUpperCase() + "."
-        if (res.from.text.autoCorrected)
+            msg.channel.send(o);
+        }).catch(err =>
         {
-            o += `Autocorrected`
-            if (res.from.text.value.length < 80)
-            {
-                o += "to:\n `" + res.from.text.value.length + "`";
-            }
-            else o += ".";
-        }
-        o += "\n" + lang.toUpperCase() + " translated version:";
-        o += "\n`" + res.text + "`";
-
-        msg.reply(o);
-    }).catch(err =>
-    {
-        console.log(">>" + err);
-    });
+            console.log(">>" + err);
+        });
+    }
 }

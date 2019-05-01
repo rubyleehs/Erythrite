@@ -15,7 +15,7 @@ module.exports = function (msg)
     }
     else
     {
-        msg.channel.fetchMessages({ limit: 5 }).then(messages =>
+        msg.channel.fetchMessages({ limit: 15 }).then(messages =>
         {
             let userMsg = messages.filter(msg => msg.author.id === member.user.id);
             if (userMsg.size > 0)
@@ -40,12 +40,14 @@ module.exports = function (msg)
         translate(text, { to: lang }).then(res =>
         {
             let o = "";
-            o += "Translated from " + res.from.language.iso.toUpperCase() + "."
-            if (res.from.text.autoCorrected)
-            {
-                o += `Autocorrected`
-            }
-            o += "\n" + lang.toUpperCase() + " translated version:";
+            if (res.from.text.autoCorrected) o += `Autocorrected Text`
+            else o += `Original Text`
+
+            o += " (" + res.from.language.iso.toUpperCase() + "):";
+            if (res.from.text.autoCorrected) o += "\n`" + res.from.text.value + "`";
+            else o += "\n`" + text + "`";
+
+            o += "\nTranslated version (" + lang.toUpperCase() + "):";
             o += "\n`" + res.text + "`";
 
             msg.channel.send(o);
